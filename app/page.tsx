@@ -265,13 +265,6 @@ export default function Home() {
             <h2>BTC/USDT Strategy Backtester</h2>
             <p className="subtitle">黑色多屏交易工作台，集成参数配置、回测可视化与信号监控。</p>
           </div>
-          <div className="top-actions">
-            <span className="market-pill">BTCUSDT</span>
-            <span className="market-pill">1h</span>
-            <button type="button" onClick={executeBacktest}>
-              Run Backtest
-            </button>
-          </div>
         </div>
 
         <section className="hero-gallery" aria-label="Homepage visual overview">
