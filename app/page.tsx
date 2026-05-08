@@ -33,6 +33,7 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const fileRef = useRef<HTMLInputElement | null>(null);
+  const [chartScale, setChartScale] = useState(1);
 
   const formatUsd = useCallback(
     (value: number) =>
@@ -129,6 +130,8 @@ export default function Home() {
     };
     reader.readAsText(file);
   };
+
+  const clampScale = (value: number) => Math.min(2.5, Math.max(0.6, Number(value.toFixed(2))));
 
   const restoreSample = () => {
     setCandles(makeSampleData());
@@ -332,7 +335,31 @@ export default function Home() {
                 </span>
               </div>
             </div>
-            <canvas ref={canvasRef} width={1200} height={520} />
+            <div className="chart-controls" aria-label="图表缩放控制">
+              <button type="button" className="ghost" onClick={() => setChartScale((current) => clampScale(current - 0.1))}>
+                缩小
+              </button>
+              <span>{Math.round(chartScale * 100)}%</span>
+              <button type="button" className="ghost" onClick={() => setChartScale((current) => clampScale(current + 0.1))}>
+                放大
+              </button>
+              <button type="button" className="ghost" onClick={() => setChartScale(1)}>
+                重置
+              </button>
+            </div>
+            <div
+              className="chart-viewport"
+              onWheel={(event) => {
+                if (!event.ctrlKey) return;
+                event.preventDefault();
+                const delta = event.deltaY > 0 ? -0.08 : 0.08;
+                setChartScale((current) => clampScale(current + delta));
+              }}
+            >
+              <div className="chart-stage" style={{ transform: `scale(${chartScale})` }}>
+                <canvas ref={canvasRef} width={1200} height={520} />
+              </div>
+            </div>
           </section>
 
           <div className="side-stack">

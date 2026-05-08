@@ -450,6 +450,36 @@ button:active {
   background: var(--green);
 }
 
+.chart-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.chart-controls button {
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+.chart-controls span {
+  font-size: 12px;
+  color: var(--muted);
+  min-width: 44px;
+  text-align: center;
+}
+
+.chart-viewport {
+  overflow: auto;
+  background: #030608;
+}
+
+.chart-stage {
+  transform-origin: top left;
+  width: fit-content;
+}
+
 canvas {
   display: block;
   width: 100%;
